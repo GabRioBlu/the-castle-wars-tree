@@ -15,6 +15,7 @@ addLayer("des", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+        if (hasUpgrade("dec", 11)) mult = mult.mul(2);
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -22,7 +23,7 @@ addLayer("des", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "d", description: "D: Reset for prestige points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "d", description: "D: get suom ddesmodo point", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
     layerShown(){return true},
 	buyables: {
