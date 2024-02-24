@@ -29,9 +29,9 @@ addLayer("dec", {
     buyables: {
         11: {
             title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>brotherness"; },
-            cost(x) { return new Decimal(x) },
+            cost(x) { return new Decimal(x).pow(2).add(1) },
             effect(x) { return new Decimal(x).add(1).pow(1.5) },
-            display() { return "even a famlial relatioship with des boots point gain by x" + format(tmp[this.layer].buyables[this.id]..effect) + "<br/>costs: " + format(tmp[this.layer].buyables[this.id].cost); },
+            display() { return "even a famlial relatioship with des boots point gain by x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>costs: " + format(tmp[this.layer].buyables[this.id].cost); },
             canAfford() { return player[this.layer].points.gte(this.cost()); },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());

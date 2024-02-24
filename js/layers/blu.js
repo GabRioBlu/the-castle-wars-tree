@@ -30,8 +30,8 @@ addLayer("blu", {
         11: {
             title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>lead your peoples"; },
             cost(x) { return new Decimal(1.05).pow(x) },
-            effect(x) { return new Decimal(x).ln().pow(2)},
-            display() { return "boost des/dec point gain<br/>cost: " +  format(tmp[this.layer].buyables[this.id].cost)},
+            effect(x) { return new Decimal(x).add(1).ln().pow(2).add(1) },
+            display() { return "boost des/dec point gain by x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>cost: " +  format(tmp[this.layer].buyables[this.id].cost)},
             canAfford() { return player[this.layer].points.gte(this.cost())},
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());

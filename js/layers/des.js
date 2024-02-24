@@ -43,9 +43,9 @@ addLayer("des", {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>gamer ability TWO!!1"; },
 			cost(x) { return new Decimal(x).add(1).pow(1.2); },
 			effect(x) {
-				let output = new Decimal(x).sqrt().mul(player[this.layer].points.ln()).add(1);
-				ret = applyPolynomialSoftcap(ret, 40, 1.5);
-				return ret;
+				let output = new Decimal(x).sqrt().mul(player[this.layer].points.add(1).ln()).add(1);
+				output = applyPolynomialSoftcap(output, 40, 1.5);
+				return output;
 			},
 			display() { return "absolute gamer skills!!! des points boost point gain by x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost);},
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
