@@ -15,6 +15,7 @@ addLayer("dec", {
     exponent: 0.5,
     gainMult() {
         mult = new Decimal(1)
+        mult = mult.mul(tmp.blu.buyables[11].effect)
         return mult
     },
     gainExp() {
@@ -28,9 +29,9 @@ addLayer("dec", {
     buyables: {
         11: {
             title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>brotherness"; },
-            cost(x) { return new Decimal(x).add(1).pow(3).div(5)},
-            effect(x) { return new Decimal(x).mul(1.1).pow(1.5).add(1)},
-            display() { return "even a famlial relatioship with des boots point gain<br/>costs: " + format(tmp[this.layer].buyables[this.id].cost); },
+            cost(x) { return new Decimal(x) },
+            effect(x) { return new Decimal(x).add(1).pow(1.5) },
+            display() { return "even a famlial relatioship with des boots point gain by x" + format(tmp[this.layer].buyables[this.id]..effect) + "<br/>costs: " + format(tmp[this.layer].buyables[this.id].cost); },
             canAfford() { return player[this.layer].points.gte(this.cost()); },
             buy() {
                 player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -43,6 +44,11 @@ addLayer("dec", {
             title: "supreme desity",
             description: "boost des points gains by 2",
             cost: new Decimal(100)
+        },
+        12: {
+            title: "unlock blu",
+            description: "unlocks blu",
+            cost: new Decimal(2000)
         }
     },
     microtabs: {

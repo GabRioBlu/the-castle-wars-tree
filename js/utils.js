@@ -1,3 +1,13 @@
+// totally not stolen function
+
+function applyPolynomialSoftcap(number, threshold, strength = new Decimal(2)) {
+	number = new Decimal(number)
+	threshold = new Decimal(threshold)
+	strength = new Decimal(strength)
+	if (number.lt(threshold)) return number
+	return number.mul(threshold.pow(strength.sub(1))).root(strength)
+}
+
 // ************ Big Feature related ************
 
 function respecBuyables(layer) {

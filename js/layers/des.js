@@ -15,6 +15,7 @@ addLayer("des", {
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
+		mult = mult.mul(tmp.blu.buyables[11].effect)
         if (hasUpgrade("dec", 11)) mult = mult.mul(2);
         return mult
     },
@@ -29,9 +30,9 @@ addLayer("des", {
 	buyables: {
 		11: {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>gamer ability"; },
-			cost(x) { return new Decimal(x).add(1).pow(1.3); },
-			effect(x) { return new Decimal(x).mul(2).add(1); },
-			display() { return "des is such gamer they can do more point generating<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost); },
+			cost(x) { return new Decimal(x).add(1).pow(1.4); },
+			effect(x) { return new Decimal(x).mul(new Decimal(x).add(1)).add(1) },
+			display() { return "des is such gamer they can do more point generating x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost); },
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
 			buy() { 
 				player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -40,9 +41,13 @@ addLayer("des", {
 		},
 		12: {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>gamer ability TWO!!1"; },
-			cost(x) { return new Decimal(x).add(1).pow(2); },
-			effect(x) { return new Decimal(x).mul(player[this.layer].points.add(1).pow(0.5)).add(1); },
-			display() { return "absolute gamer skills!!! des points boost point gain<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost);},
+			cost(x) { return new Decimal(x).add(1).pow(1.2); },
+			effect(x) {
+				let output = new Decimal(x).sqrt().mul(player[this.layer].points.ln()).add(1);
+				ret = applyPolynomialSoftcap(ret, 40, 1.5);
+				return ret;
+			},
+			display() { return "absolute gamer skills!!! des points boost point gain by x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost);},
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
 			buy() {
 				player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -53,7 +58,7 @@ addLayer("des", {
 	upgrades: {
 		11: {
 			title: "epic building skill,",
-			description: "with these epic building skills des can do more points",
+			description: "with these epic building skills des can do 2x points",
 			cost: new Decimal(1),
 		}
 	},
