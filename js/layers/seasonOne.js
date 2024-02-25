@@ -2,7 +2,7 @@ addLayer("seasonOne", {
     name:  "Season One",
     symbol: "S1",
     position: 0,
-    row: 0,
+    row: 1,
     startData() { return {
         unlocked: false,
         points: new Decimal(0)

@@ -45,8 +45,11 @@ function getPointGen() {
 	let gain = new Decimal(1)
 	gain = gain.mul(tmp.des.buyables[11].effect);
 	gain = gain.mul(tmp.des.buyables[12].effect);
+	gain = gain.mul(tmp.des.buyables[13].effect);
+	gain = gain.mul(tmp.des.buyables[14].effect);
 	gain = gain.mul(tmp.dec.buyables[11].effect);
-	if (hasUpgrade('des', 11)) gain = gain.mul(2);
+	gain = gain.mul(tmp.dec.buyables[12].effect);
+	gain = gain.mul(tmp.dec.buyables[13].effect);
 	return gain
 }
 

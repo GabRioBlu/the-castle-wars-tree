@@ -1,5 +1,5 @@
 addLayer("des", {
-    name: "demsododo!!!", // This is optional, only used in a few places, If absent it just uses the layer id.
+    name: "Desmododo", // This is optional, only used in a few places, If absent it just uses the layer id.
     symbol: "D", // This appears on the layer's node. Default is the id with the first letter capitalized
     position: 0, // Horizontal position within a row. By default it uses the layer id and sorts in alphabetical order
     startData() { return {
@@ -8,15 +8,13 @@ addLayer("des", {
     }},
     color: "#388AE8",
     requires: new Decimal(10), // Can be a function that takes requirement increases into account
-    resource: "deemsododo coolness factor!!", // Name of prestige currency
+    resource: "Des Points", // Name of prestige currency
     baseResource: "points", // Name of resource prestige is based on
     baseAmount() {return player.points}, // Get the current amount of baseResource
     type: "normal", // normal: cost to gain currency depends on amount gained. static: cost depends on how much you already have
     exponent: 0.5, // Prestige currency exponent
     gainMult() { // Calculate the multiplier for main currency from bonuses
         mult = new Decimal(1)
-		mult = mult.mul(tmp.blu.buyables[11].effect)
-        if (hasUpgrade("dec", 11)) mult = mult.mul(2);
         return mult
     },
     gainExp() { // Calculate the exponent on main currency from bonuses
@@ -24,15 +22,15 @@ addLayer("des", {
     },
     row: 0, // Row the layer is in on the tree (0 is the first row)
     hotkeys: [
-        {key: "d", description: "D: get suom ddesmodo point", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
+        {key: "d", description: "D: Prestige for Des Points", onPress(){if (canReset(this.layer)) doReset(this.layer)}},
     ],
-    layerShown(){return true},
+    layerShown(){ return true },
 	buyables: {
 		11: {
-			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>gamer ability"; },
-			cost(x) { return new Decimal(x).add(1).pow(1.4); },
-			effect(x) { return new Decimal(x).mul(new Decimal(x).add(1)).add(1) },
-			display() { return "des is such gamer they can do more point generating x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost); },
+			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Dirt"; },
+			cost(x) { return new Decimal(1.5).pow(x).div(hasUpgrade("des", 11) ? x : 1) },
+			effect(x) { return new Decimal(x).add(1) },
+			display() { return "Gather some dirt. Boosts point gain for some reason: x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost); },
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
 			buy() { 
 				player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -40,14 +38,38 @@ addLayer("des", {
 			}
 		},
 		12: {
-			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>gamer ability TWO!!1"; },
-			cost(x) { return new Decimal(x).add(1).pow(1.2); },
+			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Wood"; },
+			cost(x) { return new Decimal(2.1).pow(x).mul(10).div(hasUpgrade("des", 12) ? x : 1) },
 			effect(x) {
-				let output = new Decimal(x).sqrt().mul(player[this.layer].points.add(1).ln()).add(1);
-				output = applyPolynomialSoftcap(output, 40, 1.5);
-				return output;
+				return new Decimal(x).mul(1.5).add(1)
 			},
-			display() { return "absolute gamer skills!!! des points boost point gain by x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>cost: " + format(tmp[this.layer].buyables[this.id].cost);},
+			display() { return "Gather some wood. Also boosts point gain. x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost);},
+			canAfford() { return player[this.layer].points.gte(this.cost()); },
+			buy() {
+				player[this.layer].points = player[this.layer].points.sub(this.cost());
+				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+			}
+		},
+		13: {
+			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Stone"; },
+			cost(x) { return new Decimal(2.5).pow(x).mul(50).div(hasUpgrade("des", 13) ? x : 1); },
+			effect(x) {
+				return new Decimal(x).pow(1.2).add(1)
+			},
+			display() { return "Gather some stone. You decide it's a good idea to stop wondering why these boost point gain. x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost);},
+			canAfford() { return player[this.layer].points.gte(this.cost()); },
+			buy() {
+				player[this.layer].points = player[this.layer].points.sub(this.cost());
+				setBuyableAmount(this.layer, this.id, getBuyableAmount(this.layer, this.id).add(1));
+			}
+		},
+		14: {
+			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Food"; },
+			cost(x) { return new Decimal(3.3).pow(x).mul(100).div(hasUpgrade("des", 14) ? x : 1); },
+			effect(x) { 
+				return new Decimal(x).pow(1.3).mul(1.2).add(1)
+			},
+			display() { return "Gather some food. The extra healthiness boosts point gain: x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost);},
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
 			buy() {
 				player[this.layer].points = player[this.layer].points.sub(this.cost());
@@ -57,20 +79,35 @@ addLayer("des", {
 	},
 	upgrades: {
 		11: {
-			title: "epic building skill,",
-			description: "with these epic building skills des can do 2x points",
-			cost: new Decimal(1),
+			title: "Wooden Shovel",
+			description: "Decrease dirt resource price",
+			cost: new Decimal(30),
+		},
+		12: {
+			title: "Wooden Axe",
+			description: "Decrease wood resource price",
+			cost: new Decimal(100),
+		},
+		13: {
+			title: "Wooden Pickaxe",
+			description: "Decrease stone resource price",
+			cost: new Decimal(750),
+		},
+		14: {
+			title: "Wooden Hoe",
+			description: "Decrease food resource price",
+			cost: new Decimal(2000),
 		}
 	},
 	microtabs: {
 		stuff: {
-			"gaming prowess": {
+			"Resources": {
 				content: [
 					["blank", "15px"],
 					"buyables"
 				]
 			},
-			"skillishness": {
+			"Tools": {
 				content: [
 					["blank", "15px"],
 					"upgrades"
