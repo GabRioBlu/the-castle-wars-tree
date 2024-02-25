@@ -3,7 +3,7 @@ let modInfo = {
 	id: "castlewarstree",
 	author: "GabRio Blu",
 	pointsName: "points",
-	modFiles: ["layers/des.js","layers/dec.js", "layers/blu.js", "tree.js"],
+	modFiles: ["layers/des.js","layers/dec.js", "layers/blu.js", "layers/seasonOne.js", "tree.js"],
 
 	discordName: "",
 	discordLink: "",

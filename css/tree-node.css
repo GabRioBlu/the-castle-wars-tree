@@ -1,12 +1,18 @@
+/* layer positions */
+#des { position: absolute; transform: translate(-187.50px, 25.90px); } /* -150, -86.6 */
+#dec { position: absolute; transform: translate(112.50px, 25.90px); } /* 150, -86.6 */
+#blu { position: absolute; transform: translate(-37.50px, 285.70px); } /* 0, 173.2 */
+#seasonOne { position: absolute; transform: translate(-37.50px, 112.50px); }
+
 /* Tree nodes, button nodes, and side layers */
 .treeNode {
-	height: 100px;
-	width: 100px;
+	height: 70px;
+	width: 70px;
 	border: var(--hqProperty1);
 	border-color: rgba(0, 0, 0, 0.125);
 	border-radius: 50%;
 	box-shadow: var(--hqProperty2a), var(--hqProperty2b);
-	font-size: 40px;
+	font-size: 32px;
 	font-family: "Lucida Console", "Courier New", monospace;
 	color: rgba(0, 0, 0, 0.5);
 	text-shadow: var(--hqProperty3);

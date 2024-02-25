@@ -1,7 +1,9 @@
 addLayer("dec", {
     name: "declanbutNOTDECKLY",
     symbol: "D2",
-    position: 1,
+    row: 0,
+    position: 0,
+    branches: ["des"],
     startData() { return {
         unlocked: false,
         points: new Decimal(0)

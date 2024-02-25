@@ -1,7 +1,7 @@
 addLayer("blu", {
     name: "blu (the big man)",
     symbol: "B",
-    row: 1,
+    row: 0,
     position: 0,
     startData() { return {
         unlocked: false,
