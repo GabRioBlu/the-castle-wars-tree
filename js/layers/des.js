@@ -28,8 +28,8 @@ addLayer("des", {
 	buyables: {
 		11: {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Dirt"; },
-			cost(x) { return new Decimal(1.5).pow(x).div(hasUpgrade("des", 11) ? x : 1) },
-			effect(x) { return new Decimal(x).add(1) },
+			cost(x) { return new Decimal(1.5).pow(x || getBuyableAmount(this.layer, this.id)).div(hasUpgrade("des", 11) ? (x || getBuyableAmount(this.layer, this.id)).max(1) : 1) },
+			effect(x) { return new Decimal(x || getBuyableAmount(this.layer, this.id)).add(1) },
 			display() { return "Gather some dirt. Boosts point gain for some reason: x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost); },
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
 			buy() { 
@@ -39,9 +39,9 @@ addLayer("des", {
 		},
 		12: {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Wood"; },
-			cost(x) { return new Decimal(2.1).pow(x).mul(10).div(hasUpgrade("des", 12) ? x : 1) },
+			cost(x) { return new Decimal(2.1).pow(x || getBuyableAmount(this.layer, this.id)).mul(10).div(hasUpgrade("des", 12) ? (x || getBuyableAmount(this.layer, this.id)).max(1) : 1) },
 			effect(x) {
-				return new Decimal(x).mul(1.5).add(1)
+				return new Decimal(x || getBuyableAmount(this.layer, this.id)).mul(1.5).add(1)
 			},
 			display() { return "Gather some wood. Also boosts point gain. x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost);},
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
@@ -52,9 +52,9 @@ addLayer("des", {
 		},
 		13: {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Stone"; },
-			cost(x) { return new Decimal(2.5).pow(x).mul(50).div(hasUpgrade("des", 13) ? x : 1); },
+			cost(x) { return new Decimal(2.5).pow(x || getBuyableAmount(this.layer, this.id)).mul(50).div(hasUpgrade("des", 13) ? (x || getBuyableAmount(this.layer, this.id)).max(1) : 1); },
 			effect(x) {
-				return new Decimal(x).pow(1.2).add(1)
+				return new Decimal(x || getBuyableAmount(this.layer, this.id)).pow(1.4).add(1)
 			},
 			display() { return "Gather some stone. You decide it's a good idea to stop wondering why these boost point gain. x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost);},
 			canAfford() { return player[this.layer].points.gte(this.cost()); },
@@ -65,9 +65,9 @@ addLayer("des", {
 		},
 		14: {
 			title() { return format(getBuyableAmount(this.layer, this.id), 0) + "<br/>Gathered Food"; },
-			cost(x) { return new Decimal(3.3).pow(x).mul(100).div(hasUpgrade("des", 14) ? x : 1); },
+			cost(x) { return new Decimal(3.3).pow(x || getBuyableAmount(this.layer, this.id)).mul(100).div(hasUpgrade("des", 14) ? (x || getBuyableAmount(this.layer, this.id)).max(1) : 1); },
 			effect(x) { 
-				return new Decimal(x).pow(1.3).mul(1.2).add(1)
+				return new Decimal(x || getBuyableAmount(this.layer, this.id)).pow(1.5).mul(1.6).add(1)
 			},
 			display() { return "Gather some food. The extra healthiness boosts point gain: x" + format(tmp[this.layer].buyables[this.id].effect) + "<br/>Cost: " + format(tmp[this.layer].buyables[this.id].cost);},
 			canAfford() { return player[this.layer].points.gte(this.cost()); },

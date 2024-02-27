@@ -7,6 +7,13 @@ const TMT_VERSION = {
 	tmtName: "Fixed Reality"
 }
 
+// not stolen frfr
+function resetBuyables(layer){
+	if (layers[layer].buyables) 
+		player[layer].buyables = getStartBuyables(layer)
+	player[layer].spentOnBuyables = new Decimal(0)
+}
+
 function getResetGain(layer, useType = null) {
 	let type = useType
 	if (!useType){ 

@@ -50,6 +50,7 @@ function getPointGen() {
 	gain = gain.mul(tmp.dec.buyables[11].effect);
 	gain = gain.mul(tmp.dec.buyables[12].effect);
 	gain = gain.mul(tmp.dec.buyables[13].effect);
+	gain = gain.mul(player.dec.houseMulti);
 	return gain
 }
 
